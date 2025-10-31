@@ -1,6 +1,23 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+	"os"
+
+	"github.com/dev-mariana-task-manager-api/config"
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+)
+
+func init() {
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Fatal("Error loading .env file.")
+	}
+
+	config.ConnectDB()
+}
 
 func main() {
 	r := gin.Default()
@@ -10,5 +27,12 @@ func main() {
 			"message": "Server is running...",
 		})
 	})
-	r.Run()
+
+	port := os.Getenv("SERVER_PORT")
+
+	if port == "" {
+		port = "8080"
+	}
+
+	r.Run(":" + port)
 }
