@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"github.com/dev-mariana-task-manager-api/internal/config"
+	"github.com/dev-mariana-task-manager-api/internal/entities"
+	"github.com/dev-mariana-task-manager-api/routes"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -22,11 +24,9 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Server is running...",
-		})
-	})
+	config.DB.AutoMigrate(&entities.Task{})
+
+	routes.SetupTaskRoutes(r, config.DB)
 
 	port := os.Getenv("SERVER_PORT")
 
