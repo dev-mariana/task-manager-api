@@ -1,6 +1,8 @@
 package repositories
 
 import (
+	"context"
+
 	"github.com/dev-mariana-task-manager-api/internal/entities"
 	"github.com/nrednav/cuid2"
 	"gorm.io/gorm"
@@ -14,13 +16,14 @@ func NewTaskRepository(db *gorm.DB) ITaskRepository {
 	return &TaskRepository{db: db}
 }
 
-func (r *TaskRepository) Create(task entities.Task) (entities.Task, error) {
+func (r *TaskRepository) Create(ctx context.Context, task *entities.Task) (*entities.Task, error) {
 	if task.ID == "" {
-		task.ID = cuid2.Generate()
+		generate, _ := cuid2.Init(cuid2.WithLength(16))
+		task.ID = generate()
 	}
 
-	if err := r.db.Create(&task).Create(task).Error; err != nil {
-		return entities.Task{}, err
+	if err := r.db.WithContext(ctx).Create(task).Error; err != nil {
+		return nil, err
 	}
 
 	return task, nil

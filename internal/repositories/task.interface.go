@@ -1,7 +1,11 @@
 package repositories
 
-import "github.com/dev-mariana-task-manager-api/internal/entities"
+import (
+	"context"
+
+	"github.com/dev-mariana-task-manager-api/internal/entities"
+)
 
 type ITaskRepository interface {
-	Create(task entities.Task) (entities.Task, error)
+	Create(ctx context.Context, task *entities.Task) (*entities.Task, error)
 }
