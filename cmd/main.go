@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dev-mariana-task-manager-api/config"
+	"github.com/dev-mariana-task-manager-api/internal/config"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
