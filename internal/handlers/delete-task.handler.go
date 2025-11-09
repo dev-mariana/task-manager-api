@@ -15,6 +15,16 @@ func NewDeleteTaskHandler(service *services.DeleteTaskService) *DeleteTaskHandle
 	return &DeleteTaskHandler{service: service}
 }
 
+// DeleteTask godoc
+// @Summary Delete a task
+// @Description Delete a task by its ID
+// @Tags tasks
+// @Produce json
+// @Param id path string true "Task ID"
+// @Success 200 {object} map[string]string "Success message"
+// @Failure 404 {object} map[string]string "Task not found"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /tasks/{id} [delete]
 func (h *DeleteTaskHandler) DeleteTask(c *gin.Context) {
 	id := c.Param("id")
 

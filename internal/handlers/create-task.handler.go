@@ -16,6 +16,17 @@ func NewCreateTaskHandler(service *services.CreateTaskService) *CreateTaskHandle
 	return &CreateTaskHandler{service: service}
 }
 
+// CreateTask godoc
+// @Summary Create a new task
+// @Description Create a new task with title, description, and status
+// @Tags tasks
+// @Accept json
+// @Produce json
+// @Param task body entities.Task true "Task object"
+// @Success 201 {object} entities.Task "Created task"
+// @Failure 400 {object} map[string]string "Bad request"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /tasks [post]
 func (h *CreateTaskHandler) CreateTask(c *gin.Context) {
 	var task entities.Task
 

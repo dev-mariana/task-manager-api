@@ -16,6 +16,18 @@ func NewUpdateTaskHandler(service *services.UpdateTaskService) *UpdateTaskHandle
 	return &UpdateTaskHandler{service: service}
 }
 
+// UpdateTask godoc
+// @Summary Update a task
+// @Description Update an existing task by ID. All fields are optional.
+// @Tags tasks
+// @Accept json
+// @Produce json
+// @Param id path string true "Task ID"
+// @Param task body entities.UpdateTaskDTO true "Task update object"
+// @Success 200 {object} entities.Task "Updated task"
+// @Failure 400 {object} map[string]string "Bad request"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /tasks/{id} [patch]
 func (h *UpdateTaskHandler) UpdateTask(c *gin.Context) {
 	id := c.Param("id")
 

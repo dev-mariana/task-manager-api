@@ -15,6 +15,15 @@ func NewGetTaskHandler(service *services.GetTaskService) *GetTaskHandler {
 	return &GetTaskHandler{service: service}
 }
 
+// GetTask godoc
+// @Summary Get a task by ID
+// @Description Retrieve a specific task by its ID
+// @Tags tasks
+// @Produce json
+// @Param id path string true "Task ID"
+// @Success 200 {object} entities.Task "Task object"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /tasks/{id} [get]
 func (h *GetTaskHandler) GetTask(c *gin.Context) {
 	id := c.Param("id")
 	task, err := h.service.GetByID(c.Request.Context(), id)
