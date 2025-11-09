@@ -8,4 +8,5 @@ import (
 
 type ITaskRepository interface {
 	Create(ctx context.Context, task *entities.Task) (*entities.Task, error)
+	GetAll(ctx context.Context) ([]*entities.Task, error)
 }

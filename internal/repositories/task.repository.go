@@ -28,3 +28,13 @@ func (r *TaskRepository) Create(ctx context.Context, task *entities.Task) (*enti
 
 	return task, nil
 }
+
+func (r *TaskRepository) GetAll(ctx context.Context) ([]*entities.Task, error) {
+	var tasks []*entities.Task
+
+	if err := r.db.WithContext(ctx).Find(&tasks).Error; err != nil {
+		return nil, err
+	}
+
+	return tasks, nil
+}
