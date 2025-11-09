@@ -38,3 +38,13 @@ func (r *TaskRepository) GetAll(ctx context.Context) ([]*entities.Task, error) {
 
 	return tasks, nil
 }
+
+func (r *TaskRepository) GetByID(ctx context.Context, id string) (*entities.Task, error) {
+	var task entities.Task
+
+	if err := r.db.WithContext(ctx).First(&task, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+
+	return &task, nil
+}
