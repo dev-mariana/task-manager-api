@@ -14,7 +14,7 @@ func SetupTaskRoutes(router *gin.Engine, db *gorm.DB) {
 	createTaskHandler := handlers.NewCreateTaskHandler(createTaskService)
 
 	getAllService := services.NewGetAllTasksService(repo)
-	getAllHandler := handlers.NewFindAllTasksHandler(getAllService)
+	getAllHandler := handlers.NewGetAllTasksHandler(getAllService)
 
 	router.POST("/tasks", createTaskHandler.CreateTask)
 	router.GET("/tasks", getAllHandler.GetAllTasks)

@@ -5,15 +5,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type FindAllTasksHandler struct {
+type GetAllTasksHandler struct {
 	service *services.GetAllTasksService
 }
 
-func NewFindAllTasksHandler(service *services.GetAllTasksService) *FindAllTasksHandler {
-	return &FindAllTasksHandler{service: service}
+func NewGetAllTasksHandler(service *services.GetAllTasksService) *GetAllTasksHandler {
+	return &GetAllTasksHandler{service: service}
 }
 
-func (h *FindAllTasksHandler) GetAllTasks(c *gin.Context) {
+func (h *GetAllTasksHandler) GetAllTasks(c *gin.Context) {
 	tasks, err := h.service.GetAll(c.Request.Context())
 
 	if err != nil {
