@@ -48,3 +48,19 @@ func (r *TaskRepository) GetByID(ctx context.Context, id string) (*entities.Task
 
 	return &task, nil
 }
+
+func (r *TaskRepository) Update(ctx context.Context, id string, updates map[string]interface{}) (*entities.Task, error) {
+	if err := r.db.WithContext(ctx).
+		Model(&entities.Task{}).
+		Where("id = ?", id).
+		Updates(updates).Error; err != nil {
+		return nil, err
+	}
+
+	var updated entities.Task
+	if err := r.db.WithContext(ctx).First(&updated, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+
+	return &updated, nil
+}

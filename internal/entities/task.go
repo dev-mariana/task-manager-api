@@ -18,3 +18,9 @@ type Task struct {
 	CreatedAt   time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
+
+type UpdateTaskDTO struct {
+	Title       *string `json:"title,omitempty" binding:"required"`
+	Description *string `json:"description,omitempty" binding:"required"`
+	Status      *string `json:"status,omitempty" binding:"required"`
+}
