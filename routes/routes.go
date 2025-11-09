@@ -22,8 +22,12 @@ func SetupTaskRoutes(router *gin.Engine, db *gorm.DB) {
 	updateTaskService := services.NewUpdateTaskService(repo)
 	updateTaskHandler := handlers.NewUpdateTaskHandler(updateTaskService)
 
+	deleteTaskService := services.NewDeleteTaskService(repo)
+	deleteTaskHandler := handlers.NewDeleteTaskHandler(deleteTaskService)
+
 	router.POST("/tasks", createTaskHandler.CreateTask)
 	router.GET("/tasks", getAllHandler.GetAllTasks)
 	router.GET("/tasks/:id", getTaskHandler.GetTask)
 	router.PATCH("/tasks/:id", updateTaskHandler.UpdateTask)
+	router.DELETE("/tasks/:id", deleteTaskHandler.DeleteTask)
 }

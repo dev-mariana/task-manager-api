@@ -64,3 +64,11 @@ func (r *TaskRepository) Update(ctx context.Context, id string, updates map[stri
 
 	return &updated, nil
 }
+
+func (r *TaskRepository) Delete(ctx context.Context, id string) error {
+	if err := r.db.WithContext(ctx).Delete(&entities.Task{}, "id = ?", id).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
