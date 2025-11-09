@@ -10,8 +10,8 @@ import (
 
 func SetupTaskRoutes(router *gin.Engine, db *gorm.DB) {
 	repo := repositories.NewTaskRepository(db)
-	service := services.NewCreateTaskService(repo)
-	handler := handlers.NewCreateTaskHandler(service)
+	createTaskService := services.NewCreateTaskService(repo)
+	createTaskHandler := handlers.NewCreateTaskHandler(createTaskService)
 
-	router.POST("/tasks", handler.CreateTask)
+	router.POST("/tasks", createTaskHandler.CreateTask)
 }
